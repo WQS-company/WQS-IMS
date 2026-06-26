@@ -1,7 +1,9 @@
 use crate::auth::{create_token, hash_password, verify_password, verify_token};
 use crate::models::*;
 use crate::AppState;
+use base64::Engine;
 use rust_decimal::Decimal;
+use tauri::Manager;
 use tauri::State;
 use uuid::Uuid;
 
@@ -15,6 +17,49 @@ fn get_pool<'a>(state: &'a State<'_, AppState>) -> &'a sqlx::MySqlPool {
 
 fn generate_id() -> String {
     Uuid::new_v4().to_string()
+}
+
+fn save_image_to_disk(
+    app: &tauri::AppHandle,
+    data_url: &str,
+    product_id: &str,
+) -> Result<String, String> {
+    let parts: Vec<&str> = data_url.splitn(2, ',').collect();
+    let meta = parts.first().unwrap_or(&"");
+    let b64 = parts.get(1).unwrap_or(&"");
+
+    let ext = if meta.contains("image/png") {
+        "png"
+    } else if meta.contains("image/gif") {
+        "gif"
+    } else if meta.contains("image/webp") {
+        "webp"
+    } else {
+        "jpg"
+    };
+
+    let decoded = base64::engine::general_purpose::STANDARD
+        .decode(b64)
+        .map_err(|e| format!("Failed to decode base64: {}", e))?;
+
+    let dir = app
+        .path()
+        .app_data_dir()
+        .map_err(|e| format!("Failed to get app data dir: {}", e))?;
+    let images_dir = dir.join("product_images");
+    std::fs::create_dir_all(&images_dir)
+        .map_err(|e| format!("Failed to create images dir: {}", e))?;
+
+    let filename = format!("{}.{}", product_id, ext);
+    let path = images_dir.join(&filename);
+    std::fs::write(&path, &decoded)
+        .map_err(|e| format!("Failed to write image file: {}", e))?;
+
+    Ok(path.to_string_lossy().to_string())
+}
+
+fn is_data_url(s: &str) -> bool {
+    s.starts_with("data:image")
 }
 
 // ==================== Auth Commands ====================
@@ -382,11 +427,22 @@ pub async fn get_product_by_id(
 
 #[tauri::command]
 pub async fn create_product(
+    app: tauri::AppHandle,
     state: State<'_, AppState>,
     request: CreateProductRequest,
 ) -> Result<Product, String> {
     let pool = get_pool(&state);
     let id = generate_id();
+
+    let image_url = if let Some(ref url) = request.image_url {
+        if is_data_url(url) {
+            Some(save_image_to_disk(&app, url, &id)?)
+        } else {
+            Some(url.clone())
+        }
+    } else {
+        None
+    };
 
     sqlx::query(
         "INSERT INTO products (id, sku, name, description, category_id, brand_id, unit_id, cost_price, selling_price, min_stock, max_stock, barcode, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -403,7 +459,7 @@ pub async fn create_product(
     .bind(&request.min_stock)
     .bind(&request.max_stock)
     .bind(&request.barcode)
-    .bind(&request.image_url)
+    .bind(&image_url)
     .execute(pool)
     .await
     .map_err(|e| e.to_string())?;
@@ -419,6 +475,7 @@ pub async fn create_product(
 
 #[tauri::command]
 pub async fn update_product(
+    app: tauri::AppHandle,
     state: State<'_, AppState>,
     id: String,
     sku: Option<String>,
@@ -437,6 +494,16 @@ pub async fn update_product(
 ) -> Result<Product, String> {
     let pool = get_pool(&state);
 
+    let saved_image_url = if let Some(ref url) = image_url {
+        if is_data_url(url) {
+            Some(save_image_to_disk(&app, url, &id)?)
+        } else {
+            Some(url.clone())
+        }
+    } else {
+        None
+    };
+
     sqlx::query(
         "UPDATE products SET sku = COALESCE(?, sku), name = COALESCE(?, name), description = COALESCE(?, description), category_id = COALESCE(?, category_id), brand_id = COALESCE(?, brand_id), unit_id = COALESCE(?, unit_id), cost_price = COALESCE(?, cost_price), selling_price = COALESCE(?, selling_price), min_stock = COALESCE(?, min_stock), max_stock = COALESCE(?, max_stock), is_active = COALESCE(?, is_active), barcode = COALESCE(?, barcode), image_url = COALESCE(?, image_url) WHERE id = ?",
     )
@@ -452,7 +519,7 @@ pub async fn update_product(
     .bind(&max_stock)
     .bind(&is_active)
     .bind(&barcode)
-    .bind(&image_url)
+    .bind(&saved_image_url)
     .bind(&id)
     .execute(pool)
     .await

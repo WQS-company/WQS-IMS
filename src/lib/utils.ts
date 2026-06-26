@@ -2,9 +2,18 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { useSettingsStore } from "@/stores/settings-store";
+import { convertFileSrc } from "@/lib/tauri";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export function resolveImageUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  if (url.startsWith("data:") || url.startsWith("http:") || url.startsWith("https:") || url.startsWith("blob:")) {
+    return url;
+  }
+  return convertFileSrc(url);
 }
 
 export function formatCurrency(amount: number, currency?: string): string {

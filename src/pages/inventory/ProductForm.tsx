@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { invoke } from "@/lib/tauri";
-import { getCurrencySymbol } from "@/lib/utils";
+import { getCurrencySymbol, resolveImageUrl } from "@/lib/utils";
 import type { Category, Brand, Unit, Product } from "@/types";
 
 function PriceIcon({ className }: { className?: string }) {
@@ -563,7 +563,7 @@ export default function ProductForm() {
                   {images.map((img, i) => (
                     <div key={i} className="group relative">
                       <img
-                        src={img.preview}
+                        src={resolveImageUrl(img.preview)}
                         alt={`Product ${i + 1}`}
                         className="aspect-square rounded-xl border border-slate-200 object-cover dark:border-slate-700"
                       />

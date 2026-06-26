@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { formatCurrency, getStatusColor } from "@/lib/utils";
+import { formatCurrency, getStatusColor, resolveImageUrl } from "@/lib/utils";
 import { invoke } from "@/lib/tauri";
 import type { Product } from "@/types";
 
@@ -293,7 +293,7 @@ export default function Products() {
                         <div className="flex items-center gap-3">
                           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
                             {product.image_url ? (
-                              <img src={product.image_url} alt="" className="h-10 w-10 rounded-lg object-cover" />
+                              <img src={resolveImageUrl(product.image_url)} alt="" className="h-10 w-10 rounded-lg object-cover" />
                             ) : (
                               <Package className="h-5 w-5 text-slate-400" />
                             )}
@@ -378,7 +378,7 @@ export default function Products() {
               <Card className="group overflow-hidden transition-shadow hover:shadow-md">
                 <div className="relative aspect-square bg-slate-100 dark:bg-slate-800">
                   {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
+                    <img src={resolveImageUrl(product.image_url)} alt={product.name} className="h-full w-full object-cover" />
                   ) : (
                     <div className="flex h-full items-center justify-center">
                       <Image className="h-12 w-12 text-slate-300 dark:text-slate-600" />
