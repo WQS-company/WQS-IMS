@@ -45,22 +45,6 @@ Here is a gallery of the system interfaces showing our premium user experiences:
 
   <br/>
 
-  <h3>🔐 Professional Authentication Screens</h3>
-  <table width="100%">
-    <tr>
-      <td width="50%" align="center">
-        <img src="screenshots/media__1782460256114.png" width="95%" alt="Get Started" />
-        <br/><i>Get Started landing screen</i>
-      </td>
-      <td width="50%" align="center">
-        <img src="screenshots/media__1782460355881.png" width="95%" alt="Login" />
-        <br/><i>Secure Login Panel</i>
-      </td>
-    </tr>
-  </table>
-  <br/>
-  <img src="screenshots/media__1782462852021.png" width="90%" alt="Register Account" />
-  <p><i>Account registration with full-screen illustration backdrops and step validation.</i></p>
 </div>
 
 ---
