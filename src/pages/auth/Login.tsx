@@ -97,28 +97,28 @@ export default function Login() {
         }}
       />
 
-      {/* Layer 1 — Soft dark tint so the whole image recedes behind content */}
-      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/70" />
+      {/* Layer 1 — Soft dark tint so illustration recedes behind content */}
+      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/45" />
 
       {/* Layer 2 — Gradient mask left edge (fades image into dark on left) */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f] via-[#06060f]/80 to-transparent lg:w-[45%]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f]/70 via-[#06060f]/50 to-transparent lg:w-[45%]" />
 
       {/* Layer 3 — Gradient mask right edge */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-[#06060f]/90 via-[#06060f]/40 to-transparent lg:left-[55%] lg:w-[45%]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-[#06060f]/70 via-[#06060f]/20 to-transparent lg:left-[55%] lg:w-[45%]" />
 
       {/* Layer 4 — Top vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#06060f]/80 via-transparent to-transparent h-[30%]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#06060f]/60 via-transparent to-transparent h-[30%]" />
 
       {/* Layer 5 — Bottom vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06060f]/90 via-[#06060f]/30 to-transparent h-[40%] bottom-0 top-auto" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06060f]/70 via-[#06060f]/15 to-transparent h-[40%] bottom-0 top-auto" />
 
       {/* Layer 6 — Radial glow centre (draws the eye to the illustration) */}
-      <div className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-indigo-500/[0.06] to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-indigo-500/[0.04] to-transparent" />
 
       {/* Layer 7 — Floating ambient blurs (depth, no edges visible) */}
-      <div className="pointer-events-none absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-indigo-600/8 blur-[140px]" />
-      <div className="pointer-events-none absolute -bottom-32 right-1/4 h-[400px] w-[400px] rounded-full bg-purple-600/8 blur-[120px]" />
-      <div className="pointer-events-none absolute right-0 top-0 h-[300px] w-[300px] rounded-full bg-indigo-500/5 blur-[100px]" />
+      <div className="pointer-events-none absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-indigo-600/6 blur-[140px]" />
+      <div className="pointer-events-none absolute -bottom-32 right-1/4 h-[400px] w-[400px] rounded-full bg-purple-600/6 blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-0 h-[300px] w-[300px] rounded-full bg-indigo-500/4 blur-[100px]" />
 
       {/* Layer 8 — Dot grid (subtle texture over everything) */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.03]">
@@ -242,7 +242,7 @@ export default function Login() {
           </div>
 
           {/* Glassmorphism Card */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl sm:p-8">
+          <div className="rounded-2xl border border-white/[0.12] bg-white/[0.06] p-6 shadow-2xl backdrop-blur-2xl sm:p-8" style={{ boxShadow: "0 0 40px rgba(99,102,241,0.06), 0 25px 50px -12px rgba(0,0,0,0.2)" }}>
             {/* Header */}
             <div className="mb-6">
               <h2 className="text-xl font-semibold text-white sm:text-2xl">

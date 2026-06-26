@@ -272,19 +272,19 @@ export default function Register() {
       />
 
       {/* Layer 1 — Soft dark tint */}
-      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/55" />
+      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/35" />
 
       {/* Layer 2 — Left gradient mask */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f]/80 via-[#06060f]/30 to-transparent lg:w-[45%]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f]/60 via-[#06060f]/15 to-transparent lg:w-[45%]" />
 
       {/* Layer 3 — Right gradient mask */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-[#06060f]/75 via-[#06060f]/30 to-transparent lg:left-[55%] lg:w-[45%]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-[#06060f]/55 via-[#06060f]/15 to-transparent lg:left-[55%] lg:w-[45%]" />
 
       {/* Layer 4 — Top vignette */}
-      <div className="pointer-events-none absolute inset-0 h-[25%] bg-gradient-to-b from-[#06060f]/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 h-[25%] bg-gradient-to-b from-[#06060f]/45 to-transparent" />
 
       {/* Layer 5 — Bottom vignette */}
-      <div className="pointer-events-none absolute inset-0 top-auto h-[25%] bg-gradient-to-t from-[#06060f]/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 top-auto h-[25%] bg-gradient-to-t from-[#06060f]/55 to-transparent" />
 
       {/* Layer 6 — Ambient blurs */}
       <div className="pointer-events-none absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-indigo-600/8 blur-[140px]" />
@@ -373,7 +373,7 @@ export default function Register() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.05] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+          <div className="rounded-2xl border border-white/[0.12] bg-white/[0.06] p-6 shadow-2xl backdrop-blur-2xl sm:p-8" style={{ boxShadow: "0 0 40px rgba(99,102,241,0.06), 0 25px 50px -12px rgba(0,0,0,0.2)" }}>
             {/* Header */}
             <div className="mb-5">
               <h2 className="text-lg font-semibold text-white sm:text-xl">

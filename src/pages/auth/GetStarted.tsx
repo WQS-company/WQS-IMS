@@ -23,11 +23,11 @@ export default function GetStarted() {
         }}
       />
 
-      {/* Layer 1 — Subtle dark tint (kept very light so the illustration shows) */}
-      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/30" />
+      {/* Layer 1 — Very subtle dark tint */}
+      <div className="pointer-events-none absolute inset-0 bg-[#06060f]/20" />
 
-      {/* Layer 2 — Gradient mask: darken left edge only slightly for text readability */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f]/70 via-[#06060f]/20 to-transparent lg:w-[42%]" />
+      {/* Layer 2 — Gradient mask: darken left edge only for text readability */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06060f]/60 via-[#06060f]/10 to-transparent lg:w-[42%]" />
 
       {/* Layer 3 — Right side: removed so the person illustration is fully visible */}
 
@@ -155,8 +155,8 @@ export default function GetStarted() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="w-full max-w-sm"
           >
-            {/* Glassmorphism card — more transparent so character behind shows through */}
-            <div className="rounded-2xl border border-white/[0.12] bg-black/[0.25] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
+            {/* Glassmorphism card — transparent so illustration shows through */}
+            <div className="rounded-2xl border border-white/[0.15] bg-white/[0.06] p-6 shadow-2xl shadow-black/10 backdrop-blur-2xl sm:p-8" style={{ boxShadow: "0 0 40px rgba(99,102,241,0.06), 0 25px 50px -12px rgba(0,0,0,0.25)" }}>
               <div className="space-y-5 text-center">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
                   <Package className="h-7 w-7 text-indigo-400" />
